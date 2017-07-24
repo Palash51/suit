@@ -135,24 +135,18 @@ DATABASES['default'].update(db_from_env)
 
 
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, "static"),
-    ]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage' 
 
 
 import dj_database_url
-DATABASES['default'] = dj_database_url.config()
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = ['*']
-
-DEBUG = False
-
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),
+    ]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
