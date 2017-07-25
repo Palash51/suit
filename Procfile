@@ -1,1 +1,1 @@
-web: gunicorn suitmonk.wsgi  --log-file -
+web: gunicorn suitmonk.wsgi 
